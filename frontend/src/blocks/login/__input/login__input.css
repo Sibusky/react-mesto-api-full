@@ -1,0 +1,20 @@
+.login__input {
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1;
+    text-rendering: optimizeLegibility;
+    text-decoration: none;
+    background: none;
+    color: #ccc;
+    width: 100%;
+    padding: 0 0 8px;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid #ccc;
+}
+
+.login__input:focus {
+    outline: none;
+}

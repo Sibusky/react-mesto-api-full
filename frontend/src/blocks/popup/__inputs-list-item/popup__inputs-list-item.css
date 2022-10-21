@@ -1,0 +1,14 @@
+.popup__inputs-list-item {
+    padding: 0;
+    margin: 0 0 30px;
+}
+
+.popup__inputs-list-item:last-of-type {
+    margin: 0 0 48px;
+}
+
+@media screen and (max-width: 760px) {
+    .popup__inputs-list-item:last-of-type {
+        margin: 0 0 46px;
+    }
+}
