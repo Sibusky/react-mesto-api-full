@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3001';
+export const BASE_URL = 'http://api.asmirnov.students.nomoredomains.icu';
 
 // Проверяю ответ сервера
 function checkResponse(res) {
@@ -35,12 +35,13 @@ export function authorize(email, password) {
 
 // Получаю информацию о текущем пользователе
 export function getContent(token) {
+    console.log('отправленный токен getContent:', token)
     return fetch(`${BASE_URL}/users/me`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
-        }
+        },
     })
         .then(checkResponse)
 }

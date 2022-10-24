@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -55,6 +56,13 @@ app.use(cors({
 
 // Подключаю логгер запросов
 app.use(requestLogger);
+
+// Краш-тест. После код-ревью удалить.
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 // Роуты не требующие авторизации: логин и регистрация
 app.post('/signin', loginValidation, login);

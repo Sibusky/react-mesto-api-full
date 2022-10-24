@@ -6,14 +6,18 @@ class Api {
 
   getProfile() {
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      }
     })
-      .then((res) =>  res.ok ? res.json() : Promise.reject(res.status)) // Если ответ пришёл, получаем .json, если нет, идём в .catch
+      .then((res) => res.ok ? res.json() : Promise.reject(res.status)) // Если ответ пришёл, получаем .json, если нет, идём в .catch
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      }
     })
       .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
   }
@@ -21,7 +25,9 @@ class Api {
   editProfile(name, about) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
       body: JSON.stringify({
         name,
         about,
@@ -33,7 +39,9 @@ class Api {
   addCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
       body: JSON.stringify({
         name,
         link
@@ -45,7 +53,9 @@ class Api {
   deleteCard(id) {
     return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      }
     })
       .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
   }
@@ -71,7 +81,9 @@ class Api {
   changeLikeCardStatus(id, isLiked) {
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: isLiked ? "PUT" : "DELETE",
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      }
     })
       .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
   }
@@ -80,7 +92,9 @@ class Api {
   editAvatar(avatar) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
       body: JSON.stringify({
         avatar  // Этот параметр должен быть ссылкой
       })
@@ -91,9 +105,8 @@ class Api {
 }
 
 export const api = new Api({
-  baseUrl: "http://localhost:3001",
+  baseUrl: "http://api.asmirnov.students.nomoredomains.icu",
   headers: {
-    Authorization: `Bearer ${localStorage.getItem("jwt")}`,
     "Content-Type": "application/json",
   },
 });

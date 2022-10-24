@@ -48,6 +48,9 @@ function App() {
 
   // Получаю данные пользователя и карточек
   useEffect(() => {
+    
+    // console.log(loggedIn)
+
     if (loggedIn) {
       api.getProfile() // Загружаю данные пользователья
         .then((userData) => {
@@ -190,9 +193,6 @@ function App() {
   function handleLogin({ email, password }) {
     return Auth.authorize(email, password)
       .then((res) => {
-
-        console.log(res)
-
         if (res.token) {
           localStorage.setItem("jwt", res.token); // Записываю токен в LocalStorage
           handleCheckToken();
