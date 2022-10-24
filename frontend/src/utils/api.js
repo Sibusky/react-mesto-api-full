@@ -8,7 +8,7 @@ class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
     })
-      .then((res) => (res.ok ? res.json() : Promise.reject(res.status))) // Если ответ пришёл, получаем .json, если нет, идём в .catch
+      .then((res) =>  res.ok ? res.json() : Promise.reject(res.status)) // Если ответ пришёл, получаем .json, если нет, идём в .catch
   }
 
   getInitialCards() {
@@ -91,9 +91,9 @@ class Api {
 }
 
 export const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-39",
+  baseUrl: "http://localhost:3001",
   headers: {
-    authorization: "d376e762-1130-4acf-8b0e-4370f7856fb8",
+    Authorization: `Bearer ${localStorage.getItem("jwt")}`,
     "Content-Type": "application/json",
   },
 });

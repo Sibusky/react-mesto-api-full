@@ -19,12 +19,15 @@ module.exports = (req, res, next) => {
   try {
     // пытаюсь верифицировать токен
     payload = jwt.verify(token, 'secret-key');
+
   } catch (err) {
     // отправляю ошибку, если не получилось
     next(new UnauthorizedError('Необходима авторизация'));
   }
 
   req.user = payload; // записываю пейлоуд в объект запроса
+
+  // console.log(req.user)
 
   return next(); // пропускаю запрос дальше
 };

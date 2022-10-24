@@ -1,10 +1,10 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = 'http://localhost:3001';
 
 // Проверяю ответ сервера
 function checkResponse(res) {
     return res.ok
         ? res.json()
-        : Promise.reject(`Ошибка...: ${res.status}`);
+        : Promise.reject(`Ошибка...: ${res.status}: ${res.message}`);
 };
 
 // Функция регистрации пользователя
@@ -33,7 +33,7 @@ export function authorize(email, password) {
         .then(checkResponse)
 };
 
-// Получаю токен
+// Получаю информацию о текущем пользователе
 export function getContent(token) {
     return fetch(`${BASE_URL}/users/me`, {
         method: 'GET',

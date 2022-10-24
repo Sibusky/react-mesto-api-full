@@ -129,7 +129,7 @@ function App() {
   // Функция для установки лайка
   function handleCardLike(card) {
     // Проверяю, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some(i => i._id === currentUser.id);
+    const isLiked = card.likes.some(i => i === currentUser.id);
 
     // Отправляю запрос в API и получаю обновлённые данные карточки
     // Запись setCards((state) => state.map((c) => c._id === card._id ? newCard : c)); равносильна записи:
@@ -166,7 +166,7 @@ function App() {
   function handleRegister({ email, password }) {
     return Auth.register(email, password)
       .then((res) => {
-        const { email } = res.data;
+        const { email } = res;
         setUserData({ ...userData, email });
         setIsInfoTooltipMessage({
           image: registrationSucsessImg,
@@ -178,7 +178,7 @@ function App() {
         console.log(`Ошибка...: ${err}`);
         setIsInfoTooltipMessage({
           image: registrationFailImg,
-          caption: "Что-то пошло не так! Попробуйте ещё раз.",
+          caption: `Что-то пошло не так! Попробуйте ещё раз.`,
         });
       })
       .finally(() => {
@@ -190,11 +190,12 @@ function App() {
   function handleLogin({ email, password }) {
     return Auth.authorize(email, password)
       .then((res) => {
+
+        console.log(res)
+
         if (res.token) {
-          localStorage.setItem("jwt", res.token);
-
+          localStorage.setItem("jwt", res.token); // Записываю токен в LocalStorage
           handleCheckToken();
-
           history.push("/"); // Если данные ещё есть в localstorage, пользователь переходит на главную
         }
       })
@@ -214,7 +215,7 @@ function App() {
       let jwt = localStorage.getItem("jwt");
       Auth.getContent(jwt)
         .then((res) => {
-          const { _id, email } = res.data;
+          const { _id, email } = res;
           setLoggedIn(true);
           setUserData({ _id, email });
         })
@@ -231,6 +232,18 @@ function App() {
     setUserData({ _id: "", email: "" });
     history.push("/signin");
   }
+
+  // Функция закрытия по esc
+  useEffect(() => {
+    function closeByEsc(evt) {
+      if (evt.key === 'Escape') {
+        evt.preventDefault();
+        closeAllPopups();
+      }
+    }
+    document.addEventListener('keydown', closeByEsc);
+    return () => document.removeEventListener('keydown', closeByEsc)
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>

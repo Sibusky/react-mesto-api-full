@@ -7,7 +7,7 @@ export default function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const { currentUser } = React.useContext(CurrentUserContext);
 
   // Определяю, являюсь ли я владельцем текущей карточки
-  const isOwn = card.owner._id === currentUser.id;
+  const isOwn = card.owner === currentUser.id;
 
   // Создаю переменную, которую после задам в `className` для кнопки удаления
   const cardDeleteButtonClassName = (
@@ -15,7 +15,7 @@ export default function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   );
 
   // Определяю, есть ли у карточки лайк, поставленный текущим пользователем
-  const isLiked = card.likes.some(i => i._id === currentUser.id);
+  const isLiked = card.likes.some(i => i === currentUser.id);
 
   // Создаю переменную, которую после задам в `className` для кнопки лайка
   const cardLikeButtonClassName = (

@@ -7,14 +7,19 @@ const cardsRouter = require('./routes/cards');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { urldRegEx } = require('./utils/constants');
+const cors = require('cors');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const NotFoundError = require('./errors/not-found-err');
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 // Подключаю БД
-mongoose.connect('mongodb://localhost:27017/mestodb');
+mongoose.connect('mongodb://localhost:27017/mestodb', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 // Валидирую данные для регистрации, используя celebrate
 const bodyValidation = celebrate({
@@ -39,6 +44,18 @@ const loginValidation = celebrate({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Разрешаю CORS
+app.use(cors({
+  origin: ['http://localhost:3000',
+  'http://asmirnov.students.nomoredomains.icu',
+  'https://asmirnov.students.nomoredomains.icu',
+  ],
+  methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH'],
+}));
+
+// Подключаю логгер запросов
+app.use(requestLogger);
+
 // Роуты не требующие авторизации: логин и регистрация
 app.post('/signin', loginValidation, login);
 app.post('/signup', bodyValidation, createUser);
@@ -52,6 +69,9 @@ app.use('/cards', auth, cardsRouter);
 
 // Роут на ненайденную страницу
 app.use('/*', (req, res, next) => next(new NotFoundError('Страница не найдена')));
+
+// Подключаю логгер ошибок
+app.use(errorLogger);
 
 // Мидлвара celebrate для отправки ошибки пользователю
 app.use(errors());
