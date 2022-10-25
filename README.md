@@ -6,6 +6,6 @@
    
 Проект загружен на виртуальную машину в Яндекс.Облако и доступен онлайн по ссылке: https://asmirnov.students.nomoredomains.icu   
     
-IP 51.250.66.15       
+IP 178.154.228.175         
 Frontend https://asmirnov.students.nomoredomains.icu     
 Backend https://api.asmirnov.students.nomoredomains.icu     
