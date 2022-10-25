@@ -8,6 +8,7 @@ class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        "Content-Type": "application/json",
       }
     })
       .then((res) => res.ok ? res.json() : Promise.reject(res.status)) // Если ответ пришёл, получаем .json, если нет, идём в .catch
@@ -17,6 +18,7 @@ class Api {
     return fetch(`${this._baseUrl}/cards`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        "Content-Type": "application/json",
       }
     })
       .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
@@ -27,6 +29,7 @@ class Api {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name,
@@ -41,6 +44,7 @@ class Api {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name,
@@ -55,6 +59,7 @@ class Api {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        "Content-Type": "application/json",
       }
     })
       .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
@@ -83,6 +88,7 @@ class Api {
       method: isLiked ? "PUT" : "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        "Content-Type": "application/json",
       }
     })
       .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
@@ -94,6 +100,7 @@ class Api {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         avatar  // Этот параметр должен быть ссылкой
@@ -106,7 +113,5 @@ class Api {
 
 export const api = new Api({
   baseUrl: "http://api.asmirnov.students.nomoredomains.icu",
-  headers: {
-    "Content-Type": "application/json",
-  },
+  headers: {},
 });
