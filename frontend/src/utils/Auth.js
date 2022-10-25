@@ -35,7 +35,6 @@ export function authorize(email, password) {
 
 // Получаю информацию о текущем пользователе
 export function getContent(token) {
-    console.log('отправленный токен getContent:', token)
     return fetch(`${BASE_URL}/users/me`, {
         method: 'GET',
         headers: {
