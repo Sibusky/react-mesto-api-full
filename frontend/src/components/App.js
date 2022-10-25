@@ -215,7 +215,7 @@ function App() {
       let jwt = localStorage.getItem("jwt");
       Auth.getContent(jwt)
         .then((res) => {
-          const { _id, email } = res.data;
+          const { _id, email } = res;
           setLoggedIn(true);
           setUserData({ _id, email });
         })
