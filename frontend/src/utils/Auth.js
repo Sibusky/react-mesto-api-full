@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://api.asmirnov.students.nomoredomains.icu';
+export const BASE_URL = 'https://api.asmirnov.students.nomoredomains.icu';
 
 // Проверяю ответ сервера
 function checkResponse(res) {

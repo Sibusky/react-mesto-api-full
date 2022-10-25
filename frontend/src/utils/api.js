@@ -112,6 +112,6 @@ class Api {
 }
 
 export const api = new Api({
-  baseUrl: "http://api.asmirnov.students.nomoredomains.icu",
+  baseUrl: "https://api.asmirnov.students.nomoredomains.icu",
   headers: {},
 });
