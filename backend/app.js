@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const { celebrate, Joi, errors } = require('celebrate');
@@ -8,7 +9,6 @@ const cardsRouter = require('./routes/cards');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { urldRegEx } = require('./utils/constants');
-const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const NotFoundError = require('./errors/not-found-err');
@@ -48,10 +48,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Разрешаю CORS
 app.use(cors({
   origin: ['http://localhost:3000',
-  'http://asmirnov.students.nomoredomains.icu',
-  'https://asmirnov.students.nomoredomains.icu',
+    'http://asmirnov.students.nomoredomains.icu',
+    'https://asmirnov.students.nomoredomains.icu',
   ],
-  methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH'],
+  methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
 }));
 
 // Подключаю логгер запросов

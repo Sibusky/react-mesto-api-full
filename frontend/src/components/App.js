@@ -65,9 +65,9 @@ function App() {
 
       api.getInitialCards() // Загружаю данные карточек
         .then((cardList) => {
-          setCards(cardList)
+          setCards(cardList.reverse());
         })
-        .catch(err => console.log(`Ошибка: ${err}`))
+        .catch(err => console.log(`Ошибка: ${err}`));
 
       history.push("/"); // Если всё хорошо, то перехожу на начальную страницу с карточками
     }
